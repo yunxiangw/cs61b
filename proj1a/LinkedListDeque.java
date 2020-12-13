@@ -4,7 +4,7 @@ public class LinkedListDeque<T> {
         private Node prev;
         private Node rest;
 
-        public Node(T item, Node prev, Node rest) {
+        Node(T item, Node prev, Node rest) {
             this.item = item;
             this.prev = prev;
             this.rest = rest;
@@ -64,11 +64,7 @@ public class LinkedListDeque<T> {
 
     /** Returns true if deque is empty, false otherwise */
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == 0;
     }
 
     /** Returns the number of items in the deque */
@@ -82,7 +78,7 @@ public class LinkedListDeque<T> {
             return null;
         }
         Node p = sentinel.rest;
-        while(index > 0) {
+        while (index > 0) {
             p = p.rest;
             index--;
         }
@@ -101,7 +97,7 @@ public class LinkedListDeque<T> {
         if (index == 0) {
             return first.item;
         } else {
-            return getRecursiveHelper(index-1, first.rest);
+            return getRecursiveHelper(index - 1, first.rest);
         }
     }
 

@@ -6,7 +6,7 @@ public class ArrayDeque<T> {
 
     /** Create an empty Deque */
     public ArrayDeque() {
-        items = (T[]) new Object[5];
+        items = (T[]) new Object[10];
         size = 0;
         nextFirst = 0;
         nextLast = 1;
@@ -17,8 +17,8 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
         nextFirst = pointerMoveLeft(nextFirst);
-        if (nextFirst == nextLast) {
-            resize();
+        if (size + 1 == items.length) {
+            resize(size + 2);
         }
     }
 
@@ -27,36 +27,44 @@ public class ArrayDeque<T> {
         items[nextLast] = item;
         size++;
         nextLast = pointerMoveRight(nextLast);
-        if (nextFirst == nextLast) {
-            resize();
+        if (size + 1 == items.length) {
+            resize(size + 2);
         }
     }
 
     /** Removes and returns the item at the front of the deque */
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         nextFirst = pointerMoveRight(nextFirst);
         size--;
         T result = items[nextFirst];
         items[nextFirst] = null;
+        if (size + 2 < items.length) {
+            resize(size + 2);
+        }
         return result;
     }
 
     /** Removes and returns the item at the end of the deque */
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         nextLast = pointerMoveLeft(nextLast);
         size--;
         T result = items[nextLast];
         items[nextLast] = null;
+        if (size + 2 < items.length) {
+            resize(size + 2);
+        }
         return result;
     }
 
     /** Returns true if deque is empty, false otherwise */
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == 0;
     }
 
     /** Returns the number of items in the deque */
@@ -104,12 +112,13 @@ public class ArrayDeque<T> {
     }
 
     /** Resize the array */
-    private void resize() {
-        T[] largerItems = (T[]) new Object[size+2];
-        System.arraycopy(items, nextFirst, largerItems, nextFirst+1, items.length-nextFirst);
-        System.arraycopy(items, 0, largerItems, 0, nextLast);
-        nextFirst++;
-        items = largerItems;
+    private void resize(int capacity) {
+        T[] resizedItems = (T[]) new Object[capacity];
+        int var = capacity - items.length;
+        System.arraycopy(items, nextFirst, resizedItems, nextFirst + var, items.length - nextFirst);
+        System.arraycopy(items, 0, resizedItems, 0, nextLast);
+        nextFirst += var;
+        items = resizedItems;
     }
 
     /** Given the index in the Deque, return the index in the array */
