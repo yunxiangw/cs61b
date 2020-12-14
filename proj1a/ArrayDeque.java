@@ -17,8 +17,8 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
         nextFirst = movePointer(nextFirst, -1);
-        if (nextFirst == nextLast) {
-            resize(size + 2);
+        if (size + 2 == items.length) {
+            resize(items.length * 2);
         }
     }
 
@@ -27,8 +27,8 @@ public class ArrayDeque<T> {
         items[nextLast] = item;
         size++;
         nextLast = movePointer(nextLast, 1);
-        if (nextFirst == nextLast) {
-            resize(size + 2);
+        if (size + 2 > items.length) {
+            resize(items.length * 2);
         }
     }
 
@@ -41,8 +41,8 @@ public class ArrayDeque<T> {
         size--;
         T result = items[nextFirst];
         items[nextFirst] = null;
-        if (size + 2 < items.length) {
-            resize(size + 2);
+        if (size + 2 <= items.length / 2) {
+            resize(items.length / 2);
         }
         return result;
     }
@@ -56,8 +56,8 @@ public class ArrayDeque<T> {
         size--;
         T result = items[nextLast];
         items[nextLast] = null;
-        if (size + 2 < items.length) {
-            resize(size + 2);
+        if (size + 2 <= items.length / 2) {
+            resize(items.length + 2);
         }
         return result;
     }
