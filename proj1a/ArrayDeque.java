@@ -6,7 +6,7 @@ public class ArrayDeque<T> {
 
     /** Create an empty Deque */
     public ArrayDeque() {
-        items = (T[]) new Object[10];
+        items = (T[]) new Object[3];
         size = 0;
         nextFirst = 0;
         nextLast = 1;
@@ -16,8 +16,8 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         items[nextFirst] = item;
         size++;
-        nextFirst = pointerMoveLeft(nextFirst);
-        if (size + 1 == items.length) {
+        nextFirst = movePointer(nextFirst, -1);
+        if (nextFirst == nextLast) {
             resize(size + 2);
         }
     }
@@ -26,8 +26,8 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         items[nextLast] = item;
         size++;
-        nextLast = pointerMoveRight(nextLast);
-        if (size + 1 == items.length) {
+        nextLast = movePointer(nextLast, 1);
+        if (nextFirst == nextLast) {
             resize(size + 2);
         }
     }
@@ -37,7 +37,7 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        nextFirst = pointerMoveRight(nextFirst);
+        nextFirst = movePointer(nextFirst, 1);
         size--;
         T result = items[nextFirst];
         items[nextFirst] = null;
@@ -52,7 +52,7 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        nextLast = pointerMoveLeft(nextLast);
+        nextLast = movePointer(nextLast, -1);
         size--;
         T result = items[nextLast];
         items[nextLast] = null;
@@ -86,25 +86,19 @@ public class ArrayDeque<T> {
         if (size == 0) {
             System.out.print(" ");
         }
-        int p = pointerMoveRight(nextFirst);
+        int p = movePointer(nextFirst, 1);
         while (p != nextLast) {
             System.out.print(items[p] + " ");
-            p = pointerMoveRight(p);
+            p = movePointer(p, 1);
         }
     }
 
-    /** Move a point one step left */
-    private int pointerMoveLeft(int pointer) {
-        pointer--;
+    /** Move a pointer */
+    private int movePointer(int pointer, int var) {
+        pointer += var;
         if (pointer < 0) {
             pointer = items.length - 1;
         }
-        return pointer;
-    }
-
-    /** Move a point one step right */
-    private int pointerMoveRight(int pointer) {
-        pointer++;
         if (pointer > items.length - 1) {
             pointer = 0;
         }
@@ -114,10 +108,16 @@ public class ArrayDeque<T> {
     /** Resize the array */
     private void resize(int capacity) {
         T[] resizedItems = (T[]) new Object[capacity];
-        int var = capacity - items.length;
-        System.arraycopy(items, nextFirst, resizedItems, nextFirst + var, items.length - nextFirst);
-        System.arraycopy(items, 0, resizedItems, 0, nextLast);
-        nextFirst += var;
+        if (nextLast <= nextFirst) {
+            System.arraycopy(items, nextFirst, resizedItems, 0, items.length - nextFirst);
+            System.arraycopy(items, 0, resizedItems, items.length - nextFirst, nextLast + 1);
+            nextFirst = 0;
+            nextLast = size + 1;
+        } else {
+            System.arraycopy(items, nextFirst, resizedItems, 0, nextLast - nextFirst);
+            nextFirst = 0;
+            nextLast = size + 1;
+        }
         items = resizedItems;
     }
 
