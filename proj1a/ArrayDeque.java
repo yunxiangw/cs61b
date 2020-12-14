@@ -17,7 +17,7 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
         nextFirst = movePointer(nextFirst, -1);
-        if (size + 2 == items.length) {
+        if (size + 2 > items.length) {
             resize(items.length * 2);
         }
     }
@@ -57,7 +57,7 @@ public class ArrayDeque<T> {
         T result = items[nextLast];
         items[nextLast] = null;
         if (size + 2 <= items.length / 2) {
-            resize(items.length + 2);
+            resize(items.length / 2);
         }
         return result;
     }
