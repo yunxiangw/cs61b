@@ -18,7 +18,7 @@ public class ArrayDeque<T> {
         size++;
         nextFirst = movePointer(nextFirst, -1);
         if (nextFirst == nextLast) {
-            resize(size * 2);
+            resize(size + 2);
         }
     }
 
@@ -28,7 +28,7 @@ public class ArrayDeque<T> {
         size++;
         nextLast = movePointer(nextLast, 1);
         if (nextFirst == nextLast) {
-            resize(size * 2);
+            resize(size + 2);
         }
     }
 
