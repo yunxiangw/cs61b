@@ -22,6 +22,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("a"));
         assertTrue(palindrome.isPalindrome("noon"));
         assertTrue(palindrome.isPalindrome("%&*&%"));
+        assertTrue(palindrome.isPalindrome("Aaa"));
 
         OffByOne comparator = new OffByOne();
 
