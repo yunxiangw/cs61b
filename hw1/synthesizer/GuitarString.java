@@ -14,7 +14,7 @@ public class GuitarString {
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
         int capacity = (int) Math.round(SR / frequency);
-        buffer = new ArrayRingBuffer<> (capacity);
+        buffer = new ArrayRingBuffer<>(capacity);
         while (!buffer.isFull()) {
             buffer.enqueue(0.);
         }
@@ -23,6 +23,9 @@ public class GuitarString {
 
     /* Pluck the guitar string by replacing the buffer with white noise. */
     public void pluck() {
+        while (!buffer.isEmpty()) {
+            buffer.dequeue();
+        }
         while (!buffer.isFull()) {
             buffer.enqueue(Math.random() - 0.5);
         }
