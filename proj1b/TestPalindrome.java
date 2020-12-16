@@ -22,7 +22,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("a"));
         assertTrue(palindrome.isPalindrome("noon"));
         assertTrue(palindrome.isPalindrome("%&*&%"));
-        assertTrue(palindrome.isPalindrome("Aaa"));
+        assertFalse(palindrome.isPalindrome("Aaa"));
 
         OffByOne comparator = new OffByOne();
 
@@ -30,6 +30,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("fae", comparator));
         assertTrue(palindrome.isPalindrome("&a%", comparator));
         assertFalse(palindrome.isPalindrome("good", comparator));
+        assertFalse(palindrome.isPalindrome("faE", comparator));
 
     }
 }
