@@ -13,7 +13,7 @@ public class TestArrayDequeGold {
         StudentArrayDeque<Integer> sad = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> ads = new ArrayDequeSolution<>();
 
-        for (int i = 0; i < 20; i += 1) {
+        for (int i = 0; i < 200; i += 1) {
             double randNum = StdRandom.uniform();
 
             if (randNum < 0.25) {
@@ -22,14 +22,14 @@ public class TestArrayDequeGold {
                 message += "addLast(" + Integer.toString(i) + ")\n";
             } else if (randNum >= 0.25 && randNum < 0.5){
                 sad.addFirst(i);
-                sad.addFirst(i);
+                ads.addFirst(i);
                 message += "addLast(" + Integer.toString(i) + ")\n";
             } else if (randNum >= 0.5 && randNum <= 0.75){
                 message += "removeFirst()\n";
-                assertEquals(message, sad.removeFirst(), ads.removeFirst());
+                assertEquals(message, ads.removeFirst(), sad.removeFirst());
             } else {
                 message += "removeLast()\n";
-                assertEquals(message, sad.removeLast(), ads.removeLast());
+                assertEquals(message, ads.removeLast(), sad.removeLast());
             }
         }
     }
