@@ -9,7 +9,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
     /* Array for storing the buffer data. */
     private T[] rb;
 
-    public class itemIterator implements Iterator<T> {
+    private class ItemIterator implements Iterator<T> {
         public boolean hasNext() {
             return isEmpty();
         }
@@ -72,10 +72,14 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
      * Return oldest item, but don't remove it.
      */
     public T peek() {
-        return rb[first];
+        if (!isEmpty()) {
+            return rb[first];
+        } else {
+            throw new RuntimeException("Ring buffer underflow");
+        }
     }
 
     public Iterator<T> iterator() {
-        return new itemIterator();
+        return new ItemIterator();
     }
 }
