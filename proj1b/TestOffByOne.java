@@ -9,12 +9,34 @@ public class TestOffByOne {
 
     @Test
     // Your tests go here.
-    public void testEqualChars() {
+    public void testEqualCharsLower() {
         assertTrue(offByOne.equalChars('a', 'b'));
-        assertFalse(offByOne.equalChars(' ', ' '));
-        assertTrue(offByOne.equalChars('&', '%'));
-        assertFalse(offByOne.equalChars('a', 'a'));
-        assertFalse(offByOne.equalChars('a', 'B'));
+        assertTrue(offByOne.equalChars('z', 'y'));
+        assertFalse(offByOne.equalChars('c', 'k'));
+        assertFalse(offByOne.equalChars('g', 't'));
+    }
 
+    @Test
+    public void testEqualCharsUpper() {
+        assertTrue(offByOne.equalChars('A', 'B'));
+        assertTrue(offByOne.equalChars('F', 'E'));
+        assertFalse(offByOne.equalChars('G', 'P'));
+        assertFalse(offByOne.equalChars('V', 'Q'));
+    }
+
+    @Test
+    public void testEqualCharsMixed() {
+        assertFalse(offByOne.equalChars('G', 'f'));
+        assertFalse(offByOne.equalChars('t', 'U'));
+        assertFalse(offByOne.equalChars('C', 'c'));
+        assertFalse(offByOne.equalChars('M', 'a'));
+    }
+
+    @Test
+    public void testEqualCharsSymbol() {
+        assertTrue(offByOne.equalChars('%', '&'));
+        assertFalse(offByOne.equalChars('(', '1'));
+        assertFalse(offByOne.equalChars('$', 'c'));
+        assertFalse(offByOne.equalChars('*', 'B'));
     }
 }

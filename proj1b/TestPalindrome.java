@@ -17,20 +17,93 @@ public class TestPalindrome {
     }
 
     @Test
-    public void testIsPalindrome() {
+    public void testIsPalindromeZero() {
         assertTrue(palindrome.isPalindrome(" "));
-        assertTrue(palindrome.isPalindrome("a"));
+    }
+
+    @Test
+    public void testIsPalindromeOne() {
+        assertTrue(palindrome.isPalindrome("k"));
+    }
+
+    @Test
+    public void testIsPalindromeLower() {
+        assertTrue(palindrome.isPalindrome("mom"));
         assertTrue(palindrome.isPalindrome("noon"));
-        assertTrue(palindrome.isPalindrome("%&*&%"));
-        assertFalse(palindrome.isPalindrome("Aaa"));
+        assertFalse(palindrome.isPalindrome("car"));
+        assertFalse(palindrome.isPalindrome("door"));
+    }
 
-        OffByOne comparator = new OffByOne();
+    @Test
+    public void testIsPalindromeUpper() {
+        assertTrue(palindrome.isPalindrome("MOM"));
+        assertTrue(palindrome.isPalindrome("NOON"));
+        assertFalse(palindrome.isPalindrome("CAR"));
+        assertFalse(palindrome.isPalindrome("DOOR"));
+    }
 
-        assertTrue(palindrome.isPalindrome("flake", comparator));
-        assertTrue(palindrome.isPalindrome("fae", comparator));
-        assertTrue(palindrome.isPalindrome("&a%", comparator));
-        assertFalse(palindrome.isPalindrome("good", comparator));
-        assertFalse(palindrome.isPalindrome("faE", comparator));
+    @Test
+    public void testIsPalindromeMixed() {
+        assertFalse(palindrome.isPalindrome("MOm"));
+        assertFalse(palindrome.isPalindrome("NoOn"));
+        assertFalse(palindrome.isPalindrome("CAr"));
+        assertFalse(palindrome.isPalindrome("DOOr"));
+    }
 
+    @Test
+    public void testIsPalindromeSymbol() {
+        assertTrue(palindrome.isPalindrome("%&%"));
+        assertTrue(palindrome.isPalindrome("^&a&^"));
+        assertFalse(palindrome.isPalindrome("ca!"));
+        assertFalse(palindrome.isPalindrome("goo^"));
+    }
+
+    @Test
+    public void testIsPalindromeOffByOneZero() {
+        OffByOne cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome(" ", cc));
+    }
+
+    @Test
+    public void testIsPalindromeOffByOneOne() {
+        OffByOne cc = new OffByOne();
+
+        assertTrue(palindrome.isPalindrome("t", cc));
+    }
+
+    @Test
+    public void testIsPalindromeOffByOneLower() {
+        OffByOne cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome("ab", cc));
+        assertTrue(palindrome.isPalindrome("flake", cc));
+        assertFalse(palindrome.isPalindrome("seat", cc));
+        assertFalse(palindrome.isPalindrome("monday", cc));
+    }
+
+    @Test
+    public void testIsPalindromeOffByOneUpper() {
+        OffByOne cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome("AB", cc));
+        assertTrue(palindrome.isPalindrome("FLAKE", cc));
+        assertFalse(palindrome.isPalindrome("SEAT", cc));
+        assertFalse(palindrome.isPalindrome("MONDAY", cc));
+    }
+
+    @Test
+    public void testIsPalindromeOffByOneMixed() {
+        OffByOne cc = new OffByOne();
+        assertFalse(palindrome.isPalindrome("Ab", cc));
+        assertFalse(palindrome.isPalindrome("FlAke", cc));
+        assertFalse(palindrome.isPalindrome("SeAt", cc));
+        assertFalse(palindrome.isPalindrome("moNDAY", cc));
+    }
+
+    @Test
+    public void testIsPalindromeOffByOneSymbol() {
+        OffByOne cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome("%&", cc));
+        assertTrue(palindrome.isPalindrome("%^&", cc));
+        assertFalse(palindrome.isPalindrome("%(", cc));
+        assertFalse(palindrome.isPalindrome("%%**", cc));
     }
 }
