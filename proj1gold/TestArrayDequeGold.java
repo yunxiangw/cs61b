@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class TestArrayDequeGold {
 
-    private String message;
+    private String message = "";
 
     /**
      * @source: StudentArrayDequeLauncher.java
