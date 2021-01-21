@@ -3,15 +3,15 @@ import edu.princeton.cs.introcs.StdRandom;
 
 public class PercolationStats {
 
-    private int[] threshold;
+    private double[] threshold;
     private int T;
 
-    /* perform T independent experiments on an N-by-N grid */
+    /* Perform T independent experiments on an N-by-N grid */
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException("N and T must be larger than 0");
         }
-        threshold = new int[T];
+        threshold = new double[T];
         this.T = T;
         for (int i = 0; i < T; i++) {
             Percolation sys = pf.make(N);
@@ -19,13 +19,14 @@ public class PercolationStats {
                 sys.open(StdRandom.uniform(N), StdRandom.uniform(N));
                 threshold[i]++;
             }
+            threshold[i] /= N;
         }
 
     }
 
     public double mean() {
         double sum = 0;
-        for (int x: threshold) {
+        for (double x: threshold) {
             sum += x;
         }
         return sum / T;
@@ -34,7 +35,7 @@ public class PercolationStats {
     public double stddev() {
         double sigma = 0;
         double mu = mean();
-        for (int x: threshold) {
+        for (double x: threshold) {
             sigma += (x - mu) * (x - mu);
         }
         sigma = Math.sqrt(sigma / (T - 1));

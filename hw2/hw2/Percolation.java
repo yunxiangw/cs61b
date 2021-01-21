@@ -71,6 +71,9 @@ public class Percolation {
 
     /* Check the system is percolate or not */
     public boolean percolates() {
+        if (N == 1) {
+            return isOpen(0, 0);
+        }
         return checkPercolate.connected(0, N * N + 1);
     }
 
