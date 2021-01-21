@@ -39,7 +39,7 @@ public class TestComplexOomage {
         List<Oomage> deadlyList = new ArrayList<>();
         int N = 10000;
 
-        for (int i = 0; i < N; i++ ) {
+        for (int i = 0; i < N; i++) {
             ArrayList<Integer> params = new ArrayList<>(4);
             for (int j = 0; j < 4; j += 1) {
                 params.add(StdRandom.uniform(0, 255));
