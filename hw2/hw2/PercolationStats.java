@@ -18,9 +18,8 @@ public class PercolationStats {
             Percolation sys = pf.make(N);
             while (!sys.percolates()) {
                 sys.open(StdRandom.uniform(N), StdRandom.uniform(N));
-                threshold[i]++;
             }
-            threshold[i] /= N * N;
+            threshold[i] = sys.numberOfOpenSites() / (N * N);
         }
 
     }
