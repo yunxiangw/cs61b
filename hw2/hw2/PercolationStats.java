@@ -1,6 +1,4 @@
 package hw2;
-import java.lang.IllegalArgumentException;
-import java.lang.Math;
 import edu.princeton.cs.introcs.StdRandom;
 
 public class PercolationStats {
@@ -17,7 +15,7 @@ public class PercolationStats {
         this.T = T;
         for (int i = 0; i < T; i++) {
             Percolation sys = pf.make(N);
-            while(!sys.percolates()) {
+            while (!sys.percolates()) {
                 sys.open(StdRandom.uniform(N), StdRandom.uniform(N));
                 threshold[i]++;
             }

@@ -1,5 +1,4 @@
 package hw2;
-
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
@@ -10,15 +9,17 @@ public class Percolation {
     private int N;
     private int count;
 
-    /* Create N-by-N grid (plus two virtual sites), with all sites initially blocked */
+    /* Create N-by-N grid (and virtual sites), with all sites initially blocked */
     public Percolation(int N) {
+        if (N <= 0) {
+            throw new IllegalArgumentException("N must be larger than 0");
+        }
         checkFull = new WeightedQuickUnionUF(N * N + 1);
         checkPercolate = new WeightedQuickUnionUF(N * N + 2);
         records = new boolean[N][N];
         count = 0;
         this.N = N;
-        // checkPercolate has two virtual sites that are connected to top and bottom row respectively
-        // checkFull has one virtual site that is connected to top row
+
         for (int i = 1; i < N + 1; i++) {
             checkPercolate.union(0, i);
             checkFull.union(0, i);
@@ -30,7 +31,9 @@ public class Percolation {
 
     /* Open the site (row, col) if it is not open already */
     public void open(int row, int col) {
-        if (isOpen(row, col)) return;
+        if (isOpen(row, col)) {
+            return;
+        }
         records[row][col] = true;
         if (row - 1 >= 0 && isOpen(row - 1, col)) {
             checkPercolate.union(xyToIndex(row, col), xyToIndex(row - 1, col));
@@ -68,7 +71,7 @@ public class Percolation {
 
     /* Check the system is percolate or not */
     public boolean percolates() {
-        return checkPercolate.connected(0, checkPercolate.count() - 1);
+        return checkPercolate.connected(0, N * N + 1);
     }
 
     /* Calculate index given the row and col */
