@@ -20,7 +20,7 @@ public class PercolationStats {
                 sys.open(StdRandom.uniform(N), StdRandom.uniform(N));
                 threshold[i]++;
             }
-            threshold[i] /= N * N;
+            threshold[i] /= (N * N);
         }
 
     }
