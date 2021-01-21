@@ -1,5 +1,6 @@
 package hw2;
 import edu.princeton.cs.introcs.StdRandom;
+import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
 
@@ -26,22 +27,12 @@ public class PercolationStats {
 
     /* Calculate mean */
     public double mean() {
-        double sum = 0;
-        for (double x: threshold) {
-            sum += x;
-        }
-        return sum / T;
+        return StdStats.mean(threshold);
     }
 
     /* Calculate standard deviation */
     public double stddev() {
-        double sigma = 0;
-        double mu = mean();
-        for (double x: threshold) {
-            sigma += (x - mu) * (x - mu);
-        }
-        sigma = Math.sqrt(sigma / (T - 1));
-        return sigma;
+        return StdStats.stddev(threshold);
     }
 
     /* Calculate lower bound of 95% confidence interval */
