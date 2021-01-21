@@ -19,11 +19,12 @@ public class PercolationStats {
                 sys.open(StdRandom.uniform(N), StdRandom.uniform(N));
                 threshold[i]++;
             }
-            threshold[i] /= N;
+            threshold[i] /= N * N;
         }
 
     }
 
+    /* Calculate mean */
     public double mean() {
         double sum = 0;
         for (double x: threshold) {
@@ -32,6 +33,7 @@ public class PercolationStats {
         return sum / T;
     }
 
+    /* Calculate standard deviation */
     public double stddev() {
         double sigma = 0;
         double mu = mean();
@@ -42,10 +44,12 @@ public class PercolationStats {
         return sigma;
     }
 
+    /* Calculate lower bound of 95% confidence interval */
     public double confidenceLow() {
         return mean() - 1.96 * stddev() / Math.sqrt(T);
     }
 
+    /* Calculate upper bound of 95% confidence interval */
     public double confidenceHigh() {
         return mean() + 1.96 * stddev() / Math.sqrt(T);
     }
