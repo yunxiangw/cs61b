@@ -20,6 +20,7 @@ public class PercolationStats {
                 sys.open(StdRandom.uniform(N), StdRandom.uniform(N));
             }
             threshold[i] = sys.numberOfOpenSites();
+            threshold[i] /= N * N;
         }
 
     }
