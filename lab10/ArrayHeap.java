@@ -123,16 +123,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         if (min(index, leftIndex(index)) == index && min(index, rightIndex(index)) == index) {
             return;
-        }
-        else if (min(index, leftIndex(index)) == leftIndex(index) && min(index, rightIndex(index)) == index) {
+        } else if (min(index, leftIndex(index)) == leftIndex(index) && min(index, rightIndex(index)) == index) {
             swap(index, leftIndex(index));
             sink(leftIndex(index));
-        }
-        else if (min(index, leftIndex(index)) == index && min(index, rightIndex(index)) == rightIndex(index)) {
+        } else if (min(index, leftIndex(index)) == index && min(index, rightIndex(index)) == rightIndex(index)) {
             swap(index, rightIndex(index));
             sink(rightIndex(index));
-        }
-        else {
+        } else {
             int targetIndex = min(leftIndex(index), rightIndex(index));
             swap(index, targetIndex);
             sink(targetIndex);
@@ -179,7 +176,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         Node temp = contents[size];
         contents[size] = null;
         size--;
-        sink(1);
+        if (size != 0) {
+            sink(1);
+        }
         return temp.item();
     }
 
@@ -207,8 +206,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
                 if (contents[i].priority() <= priority) {
                     contents[i].myPriority = priority;
                     sink(i);
-                }
-                else {
+                } else {
                     contents[i].myPriority = priority;
                     swim(i);
                 }
@@ -270,7 +268,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             myPriority = priority;
         }
 
-        public T item(){
+        public T item() {
             return myItem;
         }
 
