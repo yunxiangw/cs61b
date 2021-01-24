@@ -176,6 +176,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         Node temp = contents[size];
         contents[size] = null;
         size--;
+        // Sink only if the heap has more than one item
         if (size != 0) {
             sink(1);
         }
