@@ -3,22 +3,22 @@ import edu.princeton.cs.algs4.Queue;
 
 import java.util.Arrays;
 
-public class Board implements WorldState{
+public class Board implements WorldState {
 
     private int[][] tiles;
     private int[][] goal;
-    private int N;
+    private int size;
 
     public Board(int[][] tiles) {
         this.tiles = copy(tiles);
-        N = tiles.length;
-        goal = new int[N][N];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                goal[i][j] = i * N + j + 1;
+        size = tiles.length;
+        goal = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                goal[i][j] = i * size + j + 1;
             }
         }
-        goal[N - 1][N - 1] = 0;
+        goal[size - 1][size - 1] = 0;
     }
 
     /* Returns value of tile at row i, column j (or 0 if blank) */
@@ -31,7 +31,7 @@ public class Board implements WorldState{
 
     /* Returns the board size N */
     public int size() {
-        return N;
+        return size;
     }
 
     /**
@@ -76,8 +76,8 @@ public class Board implements WorldState{
     /* Return Hamming distance */
     public int hamming() {
         int dist = 0;
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (tiles[i][j] != 0 && tiles[i][j] != goal[i][j]) {
                     dist++;
                 }
@@ -89,11 +89,11 @@ public class Board implements WorldState{
     /* Return Manhattan distance */
     public int manhattan() {
         int dist = 0;
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (tiles[i][j] != 0) {
-                    int row = (tiles[i][j] - 1) / N;
-                    int col = (tiles[i][j] - 1) % N;
+                    int row = (tiles[i][j] - 1) / size;
+                    int col = (tiles[i][j] - 1) % size;
                     dist += Math.abs(row - i) + Math.abs(col - j);
                 }
             }
@@ -109,6 +109,7 @@ public class Board implements WorldState{
         return manhattan();
     }
 
+    @Override
     public boolean equals(Object y) {
         if (this == y) {
             return true;
@@ -122,6 +123,11 @@ public class Board implements WorldState{
 
     }
 
+    @Override
+    public int hashCode() {
+        return tiles.hashCode();
+    }
+
     /** Returns the string representation of the board. */
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -129,7 +135,7 @@ public class Board implements WorldState{
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i,j)));
+                s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
         }
@@ -138,7 +144,7 @@ public class Board implements WorldState{
     }
 
     private boolean inBounds(int i, int j) {
-        return i >= 0 && i < N && j >= 0 && j < N;
+        return i >= 0 && i < size && j >= 0 && j < size;
     }
 
     private int[][] copy(int[][] arr) {

@@ -1,6 +1,5 @@
 package hw4.puzzle;
 import edu.princeton.cs.algs4.MinPQ;
-import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -56,7 +55,7 @@ public class Solver {
     }
 
     private void trackBack(Searchnode n) {
-        while(n != null) {
+        while (n != null) {
             solution.add(n.state);
             n = n.prev;
         }
